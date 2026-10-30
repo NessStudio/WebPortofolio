@@ -1,0 +1,145 @@
+
+
+/* Font (disalin dari desain awal ke public/fonts) */
+
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/anton-400-0.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-400-1.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-700-2.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-400-3.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-500-4.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-700-5.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Gaya dasar, panel, kotak navigasi, dan tombol */
+:root{--bg:#f5f4ef}:root[data-theme="dark"]{--bg:#0b0a18}
+html,body{margin:0;height:100%;background:var(--bg);overflow:hidden}
+#app{position:fixed;inset:0;overflow:hidden}
+.stg{position:absolute;width:1440px;height:900px;transform-origin:0 0;display:none}
+:root[data-theme="light"] .stg.l,:root[data-theme="dark"] .stg.d{display:block}
+a{color:inherit;text-decoration:none}a:hover{opacity:.88}
+.l .sb-i:not([style*="rgb(20, 18, 43)"]):hover{background:#F1F4FB!important}
+.d .sb-i:not([style*="background: rgb(255, 229, 59)"]):hover{background:rgba(255,255,255,.12)!important}
+button{font:inherit}
+.stg>[data-dc-tpl="3"]{width:100%!important;height:100%!important}
+.stg.l{--halo:#fff}.stg.d{--halo:rgb(17,15,34)}
+.sc{position:absolute;inset:0;z-index:1;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain}.sc::-webkit-scrollbar{display:none}
+.ks{position:relative;width:100%;height:100%;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always}
+.obl{position:absolute;inset:0;opacity:0;pointer-events:none}.obl:first-child{opacity:1}
+.hb{position:relative;transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .3s,box-shadow .45s cubic-bezier(.34,1.56,.64,1);box-shadow:0 0 0 0 var(--halo),0 0 0 0 transparent,0 8px 24px transparent;animation:b2 4s ease-in-out infinite;animation-delay:calc(var(--i,0)*.3s)}
+@keyframes b2{50%{translate:0 -3px}}
+.hb:hover{opacity:1!important;transform:scale(1.1)}
+.hb:active,.hb.pop{transform:scale(.94)}
+.stg.l .wt:not(.act):hover,.stg.l .wt:not(.act).pop{background:#14122b!important;color:#fff!important}
+.stg.d .wt:not(.act):hover,.stg.d .wt:not(.act).pop{background:#2a2748!important;color:#fff!important}
+@media(prefers-reduced-motion:reduce){.hb{animation:none}}
+
+/* Tutup garis tipis di tepi panel (anti-aliasing saat layar berskala pecahan):
+   cincin warna bingkai menutupi piksel tepi di dalam maupun di luar panel. */
+.stg [data-dc-tpl="6"]::after{content:"";position:absolute;inset:18px;border:4px solid var(--halo);border-radius:0 0 42px 42px;pointer-events:none;z-index:40}
+
+/* ---- Slot gambar ------------------------------------------------------------
+   Bentuk slot (lingkaran / rounded / pil) = border-radius elemen .slot itu sendiri.
+   <img> mengisi penuh & terpotong mengikuti bentuk; placeholder (.slot-ph) hilang
+   otomatis begitu gambar diisi di src/content/images.ts. */
+.slot{position:relative;overflow:hidden;isolation:isolate}
+.slot>.slot-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:none;z-index:1;border-radius:inherit;-webkit-user-drag:none}
+.slot>.slot-img[src]{display:block}
+.slot:has(>.slot-img[src])>.slot-ph{display:none!important}
+.slot-dashed:has(>.slot-img[src]){border-color:transparent!important}
+/* logo / ikon: tidak dipotong, diberi ruang napas, alas putih */
+.slot[data-fit="contain"]>.slot-img{object-fit:contain;padding:12%;box-sizing:border-box}
+.slot[data-fit="contain"]:has(>.slot-img[src]){background:#fff!important}
+
+/* ---- Popup sertifikat ---- */
+.cm{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:4vh 4vw;background:rgba(14,12,32,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity .2s;font-family:"Space Grotesk",sans-serif;color:#14122b}
+.cm.open{opacity:1}
+.cm-box{width:min(1100px,100%);max-height:100%;display:flex;flex-direction:column;gap:14px;background:#fff;border-radius:40px 40px 40px 90px;padding:22px 26px 20px;box-shadow:0 30px 90px rgba(0,0,0,.45);transform:translateY(14px) scale(.97);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.cm.open .cm-box{transform:none}
+.cm-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.cm-titles{display:flex;flex-direction:column;gap:4px;min-width:0}
+.cm-kicker{font:700 12px "JetBrains Mono",monospace;color:#4b4f6e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm-title{font:400 30px/1.05 Anton,sans-serif;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cm-actions{display:flex;gap:8px;flex:0 0 auto}
+.cm-btn{border:0;cursor:pointer;border-radius:999px;background:#f1f4fb;color:#14122b;font:700 14px "Space Grotesk",sans-serif;height:44px;min-width:44px;padding:0 16px}
+.cm-btn:hover{background:#14122b;color:#ffe53b}
+.cm-x{padding:0}
+.cm-stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:0;flex:1 1 auto}
+.cm-main{display:flex;align-items:center;justify-content:center;max-width:100%;min-height:0;border-radius:24px 24px 24px 56px;overflow:hidden;background:#f1f4fb}
+.cm-main img{display:block;max-width:100%;max-height:68vh;object-fit:contain}
+.cm-empty{width:min(760px,100%);aspect-ratio:4/3;max-height:62vh;border:3px dashed #ff3d9a;background:repeating-linear-gradient(135deg,#fff,#fff 14px,#f6f7fc 14px,#f6f7fc 28px);font:700 15px "JetBrains Mono",monospace;display:flex;align-items:center;justify-content:center}
+.cm-nav{position:absolute;top:50%;translate:0 -50%;z-index:2;width:52px;height:52px;border:0;border-radius:50%;cursor:pointer;background:#14122b;color:#ffe53b;font:400 30px/1 "Space Grotesk",sans-serif;box-shadow:0 8px 24px rgba(20,18,43,.3)}
+.cm-nav:hover{background:#ff3d9a;color:#fff}
+.cm-prev{left:-14px}.cm-next{right:-14px}
+.cm-foot{display:flex;justify-content:space-between;font:700 13px "JetBrains Mono",monospace;color:#4b4f6e}
+.cm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;overflow:auto;padding:4px;min-height:0}
+.cm-item{display:flex;flex-direction:column;gap:6px;text-align:left;border:0;background:none;cursor:pointer;padding:0;font:inherit;color:inherit;min-width:0}
+.cm-thumb{aspect-ratio:4/3;border-radius:22px 22px 22px 46px;overflow:hidden;background:#f1f4fb;display:flex;align-items:center;justify-content:center;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
+.cm-thumb img{width:100%;height:100%;object-fit:cover}
+.cm-thumb.cm-empty{border:2px dashed #ff3d9a;font-size:12px;aspect-ratio:4/3;width:auto;max-height:none}
+.cm-item:hover .cm-thumb{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,18,43,.25)}
+.cm-cap{font:400 20px/1.1 Anton,sans-serif;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cm-sub{font:700 11px "JetBrains Mono",monospace;color:#4b4f6e;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:700px){.cm-grid{grid-template-columns:repeat(2,1fr)}.cm-title{font-size:22px}}
+
+/* ---- Responsif Mobile Portrait (lebar < 768px, portrait) ----
+   Di portrait HP, scale berbasis lebar (lihat portfolio.ts).
+   Navbar atas disembunyikan karena terlalu panjang untuk layar sempit;
+   sidebar kiri ikon tetap sebagai navigasi utama.
+   Border frame dikurangi agar tidak memotong konten.
+   Panel scroll (.sc) diberi padding bawah untuk safe area (notch/gesture bar). */
+@media(max-width:767px) and (orientation:portrait){
+  /* Sembunyikan navbar atas tengah — tidak muat di layar sempit */
+  [data-dc-tpl="73"]{display:none!important}
+
+  /* Kurangi border-radius frame agar konten tidak terpotong di sisi kecil */
+  .stg [data-dc-tpl="6"]::after{inset:8px;border-radius:0 0 24px 24px}
+
+  /* Safe area bawah (gesture bar / home indicator) */
+  .sc{padding-bottom:env(safe-area-inset-bottom,0px)}
+
+  /* Popup sertifikat lebih rapat di HP */
+  .cm-box{border-radius:24px 24px 24px 48px;padding:16px 14px 14px}
+  .cm-nav{width:40px;height:40px;font-size:22px}
+  .cm-prev{left:-8px}.cm-next{right:-8px}
+}

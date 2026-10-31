@@ -122,24 +122,25 @@ button{font:inherit}
 .cm-sub{font:700 11px "JetBrains Mono",monospace;color:#4b4f6e;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:700px){.cm-grid{grid-template-columns:repeat(2,1fr)}.cm-title{font-size:22px}}
 
-/* ---- Responsif Mobile Portrait (lebar < 768px, portrait) ----
-   Di portrait HP, scale berbasis lebar (lihat portfolio.ts).
-   Navbar atas disembunyikan karena terlalu panjang untuk layar sempit;
-   sidebar kiri ikon tetap sebagai navigasi utama.
-   Border frame dikurangi agar tidak memotong konten.
-   Panel scroll (.sc) diberi padding bawah untuk safe area (notch/gesture bar). */
-@media(max-width:767px) and (orientation:portrait){
-  /* Sembunyikan navbar atas tengah — tidak muat di layar sempit */
-  [data-dc-tpl="73"]{display:none!important}
+/* ───────── Shape dekoratif (lib/fx.ts): muncul sesekali di tiap panel, di belakang konten ───────── */
+.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.fx-s{position:absolute;display:block;opacity:0;will-change:transform,opacity}
+.fx-s svg{display:block;width:100%;height:100%;overflow:visible}
 
-  /* Kurangi border-radius frame agar konten tidak terpotong di sisi kecil */
-  .stg [data-dc-tpl="6"]::after{inset:8px;border-radius:0 0 24px 24px}
+/* ───────── Animasi kemunculan konten di desktop (kelas .rv dipasang oleh lib/fx.ts) ───────── */
+html.rv-on .ks:not(.in) .rv,html.rv-on.is-loading .ks .rv{opacity:0}
+html.rv-on:not(.is-loading) .ks.in .rv{animation:rv-up .85s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--d,0)*75ms)}
+html.rv-on:not(.is-loading) .ks.in .rvp{animation:rv-pop 1s cubic-bezier(.2,.9,.3,1.1) backwards;animation-delay:calc(var(--d,0)*60ms)}
+@keyframes rv-up{from{opacity:0;translate:0 38px}}
+@keyframes rv-pop{from{opacity:0;scale:.55}}
+@media(prefers-reduced-motion:reduce){html.rv-on .ks .rv{opacity:1!important;animation:none!important}.fx{display:none}}
 
-  /* Safe area bawah (gesture bar / home indicator) */
-  .sc{padding-bottom:env(safe-area-inset-bottom,0px)}
-
-  /* Popup sertifikat lebih rapat di HP */
-  .cm-box{border-radius:24px 24px 24px 48px;padding:16px 14px 14px}
-  .cm-nav{width:40px;height:40px;font-size:22px}
-  .cm-prev{left:-8px}.cm-next{right:-8px}
-}
+/* Status pengiriman form kontak */
+.cf-status{margin:14px 4px 0;font:700 14px/1.4 "Space Grotesk",sans-serif;color:#fff;text-shadow:0 1px 8px rgba(20,18,43,.5)}
+.cf-status:empty{display:none}
+.cf-status[data-state="err"]{color:#ffe53b}
+.stg.l .cf-status{color:#14122b;text-shadow:none}
+.stg.l .cf-status[data-state="err"]{color:#c4005f}
+.cf-status[data-state="ok"]{color:#1de0a0}
+.stg.l .cf-status[data-state="ok"]{color:#0a7a55}
+form button:disabled{opacity:.6;cursor:wait}

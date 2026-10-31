@@ -24,23 +24,55 @@ src/
   app/
     layout.tsx        # <html>, metadata, skrip tema (anti-berkedip)
     page.tsx          # menyusun halaman
-    globals.css       # font, panel, kotak navigasi, tombol, hover
+    globals.css       # font, panel, kotak navigasi, tombol, hover (desktop)
+    mobile.css        # ★ layout responsif HP/tablet kecil (≤ 820px) + popup sertifikat di HP
+    loader.css        # ★ animasi loading pertama kali masuk
   components/
     Stage.tsx         # panggung 1440×900: bingkai, panel, navigasi (server component)
+    Mobile.tsx        # ★ layout HP: bar atas, 8 section bertumpuk, navigasi bawah
+    Loader.tsx        # ★ markup layar loading
     Portfolio.tsx     # pembungkus client: menyalakan perilaku
   lib/
     portfolio.ts      # scroll, gradien antar panel, tema, routing, animasi tombol
+    mobile.ts         # ★ section aktif (nav bawah), animasi muncul saat scroll, scroll ke section di HP
+    loader.ts         # ★ progres loading → tirai terangkat
     css.ts            # string style → objek style React
   content/
     sections/*.ts     # isi 8 panel (terang + gelap) — ganti teks [placeholder] di sini
     gradients.ts      # warna tiap panel (dasar transisi gradien)
     images.ts         # ★ daftar gambar untuk semua slot (foto, logo, thumbnail proyek)
+    mobile.ts         # ★ teks untuk layout HP (samakan dengan sections/* bila Anda mengubah isi)
     chrome.ts         # logo, navbar, sidebar, tombol tema/kontak
     blobs.ts          # blob latar luar tiap panel
     shell.ts          # style bingkai tiap tema
 public/fonts/         # Anton, JetBrains Mono, Space Grotesk
 public/images/        # taruh foto/logo Anda di sini
 ```
+
+## Tampilan HP (responsif)
+
+- Layar **≤ 820px** (HP portrait, tablet kecil) dan **HP landscape** memakai layout khusus
+  (`components/Mobile.tsx` + `app/mobile.css`): bar atas (logo, section aktif, tema, kontak),
+  section bertumpuk vertikal dengan scroll biasa, dan navigasi ikon melayang di bawah.
+  Layar yang lebih lebar tetap memakai desain desktop 1440×900 yang di-scale.
+- Batas layar didefinisikan di dua tempat yang harus sama: `MOBILE_QUERY` di `src/content/mobile.ts`
+  dan `@media` di baris pertama `src/app/mobile.css`.
+- **Teks layout HP ada di `src/content/mobile.ts`** (terpisah dari `content/sections/*` yang dipakai desktop).
+  Jika mengganti teks/tautan di desktop, ganti juga di file itu. Gambar tetap satu sumber: `content/images.ts`.
+
+## Slider & partikel (HP)
+
+- Skills, Certificates, Projects, dan English Task di HP berupa slider samping (scroll-snap + titik penunjuk): `.m-slider` di `mobile.css`, `initMobile` di `lib/mobile.ts`.
+- Section About di HP: foto di atas, deskripsi di bawah.
+- Efek halus (`lib/fx.ts`): (1) konten tiap panel desktop muncul bertahap setiap panel masuk layar, (2) tiap panel punya shape berbeda yang hanya sesekali muncul, bergerak pelan, lalu hilang (di belakang konten). Mati bila reduced-motion. Gaya di `globals.css` (`.fx`, `.rv`).
+
+## Animasi loading
+
+Tampil setiap kali halaman dibuka: nama terisi gradien seiring progres, bar + persen naik sampai font &
+gambar utama (foto profil & about) selesai dimuat (minimal ±1,7 detik), lalu tirai terangkat.
+Mengikuti tema terang/gelap dan `prefers-reduced-motion`. Atur di `src/lib/loader.ts` (durasi minimum `MIN`,
+gambar yang dimuat dulu `PRELOAD`) dan `src/app/loader.css` (tampilan). Untuk menonaktifkan, hapus `<Loader />` di `app/page.tsx`
+dan `initLoader()` di `components/Portfolio.tsx`.
 
 ## Mengubah isi
 

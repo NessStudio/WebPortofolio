@@ -1,5 +1,7 @@
 import { GRADIENTS } from "../content/gradients";
 import { openCertificates, closeCertificates } from "./certModal";
+import { isMobile, mobileGoto } from "./mobile";
+import { MOBILE_QUERY } from "../content/mobile";
 
 type ThemeKey = "l" | "d";
 
@@ -169,15 +171,13 @@ export function initPortfolio(): () => void {
   };
 
   /**
-   * Panggung mengisi seluruh layar (tanpa ruang kosong): skala desain mengikuti sisi yang lebih sempit,
+   * Panggung (desktop) mengisi seluruh layar (tanpa ruang kosong): skala desain mengikuti sisi yang lebih sempit,
    * lalu sisi yang lebih lega diperluas, sehingga bingkai dan panel ikut melebar.
    *
-   * Di portrait mobile (lebar < 768px), scale berdasarkan LEBAR saja agar konten mengisi
-   * layar penuh secara horizontal — tidak zoom out ekstrem seperti di portrait.
+   * Di layar HP/tablet kecil (≤ 820px) panggung ini disembunyikan dan diganti layout mobile (components/Mobile.tsx).
    */
   const place = (g: HTMLElement, w: number, h: number): void => {
-    const isMobilePortrait = w < 768 && h > w;
-    const s = isMobilePortrait ? w / 1440 : Math.min(w / 1440, h / 900);
+    const s = Math.min(w / 1440, h / 900);
     g.style.width = w / s + "px";
     g.style.height = h / s + "px";
     g.style.transform = `scale(${s})`;
@@ -186,6 +186,7 @@ export function initPortfolio(): () => void {
   };
 
   const fit = (): void => {
+    if (isMobile()) return;
     const w = window.innerWidth;
     const h = window.innerHeight;
     const sc = cs().sc;
@@ -197,6 +198,10 @@ export function initPortfolio(): () => void {
   };
 
   const goto = (id: string, smooth: boolean): void => {
+    if (isMobile()) {
+      mobileGoto(id, smooth);
+      return;
+    }
     const i = Math.max(0, IDS.indexOf(id));
     cs().sc.scrollTo({ top: i * cs().sc.clientHeight, behavior: smooth ? "smooth" : ("instant" as ScrollBehavior) });
   };
@@ -249,7 +254,8 @@ export function initPortfolio(): () => void {
     const cert = target.closest<HTMLElement>("[data-cert],[data-cert-all]");
     if (cert) {
       e.preventDefault();
-      openCertificates(cs().g, cert.dataset.cert ? Number(cert.dataset.cert) : "all");
+      const certRoot = isMobile() ? document.getElementById("m-app") : null;
+      openCertificates(certRoot ?? cs().g, cert.dataset.cert ? Number(cert.dataset.cert) : "all");
       return;
     }
     const a = target.closest('a[href^="#"]');
@@ -289,6 +295,14 @@ export function initPortfolio(): () => void {
 
   listen(window, "popstate", () => route(false));
   listen(window, "resize", fit);
+  // Pindah antara layout desktop ↔ mobile (rotasi / ubah ukuran jendela): tetap di section yang sama
+  const mq = window.matchMedia(MOBILE_QUERY);
+  const onMode = (): void => {
+    fit();
+    route(false);
+  };
+  mq.addEventListener("change", onMode);
+  cleanups.push(() => mq.removeEventListener("change", onMode));
   listen(document, "submit", (e) => e.preventDefault());
 
   fit();

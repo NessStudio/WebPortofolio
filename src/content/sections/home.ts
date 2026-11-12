@@ -226,7 +226,7 @@ export const home: SectionContent = {
             style="font-family: Anton, sans-serif;
               font-size: 50px;
               line-height: 1">`,
-    `5+ Projects`,
+    `15+ Projects`,
     `</span>`,
     `<span
             data-dc-tpl="25"
@@ -758,7 +758,7 @@ export const home: SectionContent = {
               font-size: 50px;
               line-height: 1;
               color: rgb(243, 241, 255)">`,
-    `5+ Projects`,
+    `15+ Projects`,
     `</span>`,
     `<span
             data-dc-tpl="25"

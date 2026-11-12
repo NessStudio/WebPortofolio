@@ -103,9 +103,9 @@ export default function Mobile() {
         </div>
       </div>
 
-      <main className="m-main">
+      <main className="m-main" style={panel(0)}>
         {/* 01 · HOME */}
-        <section id="home" className="m-sec m-home" data-m-sec data-n="01" data-t="Home" style={panel(0)}>
+        <section id="home" className="m-sec m-home" data-m-sec data-n="01" data-t="Home">
           <i className="m-bar m-bar1" /><i className="m-bar m-bar2" /><i className="m-dots" /><i className="m-half" />
           <div className="m-hero m-rv">
             <i className="m-blob" />
@@ -132,9 +132,11 @@ export default function Mobile() {
         </section>
 
         {/* 02 · ABOUT */}
-        <section id="about" className="m-sec m-about" data-m-sec data-n="02" data-t="About" style={panel(1)}>
-          <Head n="02" title="About" />
-          <Photo k="about-photo" label="Your photo" className="m-about-photo m-rv" />
+        <section id="about" className="m-sec m-about" data-m-sec data-n="02" data-t="About">
+          <div className="m-about-top">
+            <Head n="02" title="About" />
+            <Photo k="about-photo" label="Your photo" className="m-about-photo m-rv" />
+          </div>
           <div className="m-edu m-rv">
             <small>{ABOUT.edu.kicker}</small>
             <strong>{ABOUT.edu.school}</strong>
@@ -152,7 +154,7 @@ export default function Mobile() {
         </section>
 
         {/* 03 · SKILLS */}
-        <section id="skills" className="m-sec m-skills" data-m-sec data-n="03" data-t="Skills" style={panel(2)}>
+        <section id="skills" className="m-sec m-skills" data-m-sec data-n="03" data-t="Skills">
           <Head n="03" title="Skills"><p className="m-lead">{SKILLS.intro}</p></Head>
           <div className="m-skill-grid m-slider" data-m-slider>
             {SKILLS.groups.map((g, gi) => (
@@ -176,11 +178,11 @@ export default function Mobile() {
         </section>
 
         {/* 04 · EXPERIENCE */}
-        <section id="experience" className="m-sec m-exp" data-m-sec data-n="04" data-t="Experience" style={panel(3)}>
+        <section id="experience" className="m-sec m-exp" data-m-sec data-n="04" data-t="Experience">
           <i className="m-ex-b1" /><i className="m-ex-b2" />
           <Head n="04" title="Experience"><p className="m-lead">{EXPERIENCE.intro}</p></Head>
           <div className="m-total m-rv"><b>{EXPERIENCE.total}</b><span>{EXPERIENCE.totalLabel}</span></div>
-          <ol className="m-timeline">
+          <ol className="m-timeline m-slider" data-m-slider>
             {EXPERIENCE.items.map((it, i) => (
               <li className={`m-tl ${i % 2 ? "alt" : ""} m-rv`} key={it.role + it.date}>
                 <i className={`m-node n${i % 3}`} />
@@ -195,7 +197,7 @@ export default function Mobile() {
         </section>
 
         {/* 05 · CERTIFICATES */}
-        <section id="certificates" className="m-sec m-certs" data-m-sec data-n="05" data-t="Certificates" style={panel(4)}>
+        <section id="certificates" className="m-sec m-certs" data-m-sec data-n="05" data-t="Certificates">
           <i className="m-ce-b1" />
           <Head n="05" title="Certificates">
             <p className="m-lead m-lead-dark">{CERTIFICATES.intro}</p>
@@ -222,7 +224,7 @@ export default function Mobile() {
         </section>
 
         {/* 06 · PROJECTS */}
-        <section id="projects" className="m-sec m-projects" data-m-sec data-n="06" data-t="Projects" style={panel(5)}>
+        <section id="projects" className="m-sec m-projects" data-m-sec data-n="06" data-t="Projects">
           <i className="m-pr-b1" />
           <Head n="06" title="Projects">
             <a className="m-btn m-btn-dark m-btn-sm" href={PROJECTS.all.href} target="_blank" rel="noopener noreferrer">{PROJECTS.all.label}</a>
@@ -249,7 +251,7 @@ export default function Mobile() {
         </section>
 
         {/* 07 · ENGLISH TASK */}
-        <section id="english-task" className="m-sec m-eng" data-m-sec data-n="07" data-t="English Task" style={panel(6)}>
+        <section id="english-task" className="m-sec m-eng" data-m-sec data-n="07" data-t="English Task">
           <i className="m-en-b1" />
           <Head n="07" title="English Task" />
           <div className="m-eng-grid m-slider" data-m-slider>
@@ -266,16 +268,15 @@ export default function Mobile() {
         </section>
 
         {/* 08 · CONTACT */}
-        <section id="contact" className="m-sec m-contact" data-m-sec data-n="08" data-t="Contact" style={panel(7)}>
+        <section id="contact" className="m-sec m-contact" data-m-sec data-n="08" data-t="Contact">
           <i className="m-co-b1" /><i className="m-co-b2" />
-          <Head n="08" title={<>Contact<br />Me</>}>
+          <Head n="08" title={<>Contact{" "}<br />Me</>}>
             <p className="m-lead">{CONTACT.lead}</p>
           </Head>
           <div className="m-info m-rv">
             <a className="m-chipbox" href={`mailto:${LINKS.email}`}><span className="m-pill-ic t-yellow">{ICONS.mail}</span><span className="m-mono">{LINKS.email}</span></a>
             <div className="m-chipbox"><span className="m-pill-ic t-cyan"><svg {...S}><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></svg></span><span className="m-mono">{CONTACT.location}</span></div>
           </div>
-          <Socials className="m-rv" />
           <form className="m-form m-rv" noValidate>
             <span className="m-form-tag">{CONTACT.formTag}</span>
             {CONTACT.fields.map((f) => (
@@ -284,6 +285,7 @@ export default function Mobile() {
             <label htmlFor="m-message"><span>{CONTACT.messageLabel}</span><textarea id="m-message" name="message" rows={5} placeholder={CONTACT.messagePlaceholder} /></label>
             <button type="submit" className="m-btn m-btn-white">{CONTACT.send} <span className="m-btn-ic pink"><Arrow /></span></button>
           </form>
+          <Socials className="m-rv m-socials-end" />
         </section>
       </main>
 

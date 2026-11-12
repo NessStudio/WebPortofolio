@@ -38,7 +38,7 @@ export const HOME = {
   school: "Universitas Ahmad Dahlan · Yogyakarta",
   stats: [
     { big: "3+", small: "Years", note: "Learning & Build" },
-    { big: "5+", small: "Projects", note: "Have Been Complete" },
+    { big: "15+", small: "Projects", note: "Have Been Complete" },
   ],
 };
 
@@ -208,6 +208,12 @@ export const ENGLISH = {
       desc: "A video presentation explaining the research background and critical analysis of an international English academic journal",
       tags: ["Video", "Thesis Background", "Journal Review"],
       href: "https://drive.google.com/drive/folders/1utei0Wj6463enp-YNolrCYk7zseVwszs?usp=sharing",
+    },
+    {
+      title: "Job Application Letter & Video Presentation",
+      desc: "A complete Professional English midterm project featuring a formal job application letter and a three-minute video showcasing my technical abilities.",
+      tags: ["Video", "Text", "Job Application", "Professional English"],
+      href: "https://drive.google.com/drive/folders/1jFh_AuVtBnfVr5u21AGldM6PH0378S3r?usp=sharing",
     },
   ],
 };
